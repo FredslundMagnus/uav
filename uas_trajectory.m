@@ -36,14 +36,22 @@ waypoints = cell(1,2);
 waypoints{1} = [0 ; 0 ; 1];
 waypoints{2} = [9 ; 9 ; 1];
 % Fix this...
-order = 7;
-corridors.times = [1 4];
-corridors.x_lower = [-1 8];
-corridors.x_upper = [1 10];
-corridors.y_lower = [-1 8];
-corridors.y_upper = [1 10];
-corridors.z_lower = [0 0];
-corridors.z_upper = [2 2];
+%order = 7;
+%corridors.times = [2 2.5 3];
+%corridors.x_lower = [6 8 8];
+%corridors.x_upper = [10 10 10];
+%corridors.y_lower = [-1 -1 -1];
+%corridors.y_upper = [1 1 3];
+%corridors.z_lower = [0 0 0];
+%corridors.z_upper = [2 2 2];
+order = 11;
+corridors.times = [1.5 2 2.5 3.25];
+corridors.x_lower = [0.5 8.65 8.65 8.65];
+corridors.x_upper = [8.5 9.35 9.35 9.35];
+corridors.y_lower = [-0.35 -0.35 -0.35 0.5];
+corridors.y_upper = [0.25 0.25 0.25 8.5];
+corridors.z_lower = [0.5 0.5 0.5 0.5];
+corridors.z_upper = [1.5 1.5 1.5 1.5];
 % ...until here
 make_plots = true;
 
