@@ -32,10 +32,29 @@ clc
 
 %% SIMULATION PARAMETERS
 
+% Unscaled route
+route_unscaled = [1 1 1; 2 1 1; 3 1 1; 3 1 2; 3 2 2; 3 3 2; 4 3 2; 4 3 3; 4 4 3; 4 5 3; 4 5 2; 4 5 1];
 
-route = [0 0 1 ; 9 0 1 ; 9 9 1]; % Original: 6.4
+% Scaling and Offset
+x_scale = 0.65;
+y_scale = 0.55;
+z_scale = 0.75;
 
-% route = [0 0 1; 1 0 1; 2 0 1; 3 0 1; 4 0 1; 5 0 1; 6 0 1; 7 0 1; 8 0 1; 9 0 1; 9 1 1; 9 2 1; 9 3 1; 9 4 1; 9 5 1; 8 5 1; 7 5 1; 7 6 1; 7 7 1; 6 7 1; 5 7 1; 5 6 1; 5 5 1; 4 5 1; 3 5 1];
+x_offset = 0.3;
+y_offset = 0.5;
+z_offset = 0.25;
+
+% Make a copy of the route_unscaled
+route_scaled = route_unscaled;
+
+% Scale the copy
+route_scaled(:,1) = (route_scaled(:,1) - 1) * x_scale + x_offset;
+route_scaled(:,2) = (route_scaled(:,2) - 1) * y_scale + y_offset;
+route_scaled(:,3) = (route_scaled(:,3) - 1) * z_scale + z_offset;
+
+% Make a copy of the route_scaled
+route = route_scaled;
+
 wall_color = [0.8 0.2 0.2];
 sample_time = 4e-2;
 publish_rate = 1 * sample_time;
