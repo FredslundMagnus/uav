@@ -1,0 +1,2 @@
+cfstart #(Number of drone) // Start the drone connection
+rostopic echo /crazyflie/battery // See the battery
