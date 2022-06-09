@@ -46,13 +46,13 @@ class Block:
         return f"Block(positions={self.position}, orientation={self.orientation})"
 
 def load_positions() -> list[Position]:
-    with open("log.txt", "r") as file:
+    with open("7_1.txt", "r") as file:
         text = file.read()
         positions = [Block(b).position for b in text.split(splitter)[:-1]]
     return positions
 
 def load_orientations() -> list[Orientation]:
-    with open("log.txt", "r") as file:
+    with open("7_1.txt", "r") as file:
         text = file.read()
         orientations = [Block(b).orientation for b in text.split(splitter)[:-1]]
     return orientations
