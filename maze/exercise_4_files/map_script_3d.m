@@ -35,7 +35,7 @@ map(end_(1), end_(2), end_(3)) = 0;
 
 
 %% Run the algorithm to optain the route
-route = greedy_3d(map, start, end_);
+route = astar_3d(map, start, end_);
 
 
 %% Draw the map

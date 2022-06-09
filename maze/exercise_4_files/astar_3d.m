@@ -20,8 +20,8 @@ function [ route ] = astar_3d( map, start, end_, length_cost )
     % Create the first node at the start position
     parent_node = node;
     parent_node.position = start;
-    parent_node.h = parent_node.calc_dist_3d(end_);
     parent_node.g = 0;
+    parent_node.h = parent_node.calc_dist_3d(end_);
     parent_node.f = parent_node.h + parent_node.g;
 
     % Flag used to skip nodes which is already added
@@ -54,29 +54,6 @@ function [ route ] = astar_3d( map, start, end_, length_cost )
                             node_pos(3) < 1 || node_pos(3) > max_z)
                             % Check if the children is an obstacle
                             if ~(map(node_pos(1), node_pos(2), node_pos(3)) == 1)
-                                % Check if the node have been visited
-                                for closed_i = 1:length(closed)
-                                    if node_pos == closed(closed_i).position
-                                        % Note that this node is not 
-                                        % to be added to children
-                                        
-                                        continue_flag = 1;
-                                    end
-                                end
-                                % Check if the node is already a child
-                                for child_i = 1:length(children)
-                                    if node_pos == children(child_i).position
-                                        % Note that this node is not 
-                                        % to be added to children
-                                        continue_flag = 1;
-                                    end
-                                end
-
-                                % Check if this node should be skipped
-                                if continue_flag == 1
-                                    continue_flag = 0;
-                                    continue
-                                end
 
                                 % Define the child node
                                 temp_node = node;
@@ -86,13 +63,42 @@ function [ route ] = astar_3d( map, start, end_, length_cost )
                                 temp_node.position = node_pos;
                                 % Calculate the distance from the node
                                 % to the end point
-                                temp_node.h = temp_node.calc_dist_3d(end_);
-                                % Update the g value
                                 temp_node.g = parent_node.g + length_cost;
+                                temp_node.h = temp_node.calc_dist_3d(end_);
                                 % Calculate the total cost of the node
                                 temp_node.f = temp_node.h + temp_node.g;
 
 
+                                % Check if the node have been visited
+                                for closed_i = 1:length(closed)
+                                    if node_pos == closed(closed_i).position
+                                        % Note that this node is not 
+                                        % to be added to children
+                                        if temp_node.f < closed(closed_i).f
+                                            closed(closed_i) = [];
+                                        else
+                                            continue_flag = 1;
+                                        end
+                                    end
+                                end
+                                % Check if the node is already a child
+                                for child_i = 1:length(children)
+                                    if node_pos == children(child_i).position
+                                        % Note that this node is not 
+                                        % to be added to children
+                                        if temp_node.f < children(child_i).f
+                                            children(child_i) = [];
+                                        else
+                                            continue_flag = 1;
+                                        end
+                                    end
+                                end
+
+                                % Check if this node should be skipped
+                                if continue_flag == 1
+                                    continue_flag = 0;
+                                    continue
+                                end
 
                                 % Add the node to the children array
                                 % Check if it is the first child
