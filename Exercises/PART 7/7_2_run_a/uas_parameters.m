@@ -33,7 +33,11 @@ clc
 %% SIMULATION PARAMETERS
 
 % Unscaled route
-route_unscaled = [1 1 1; 2 1 1; 3 1 1; 3 1 2; 3 2 2; 3 3 2; 4 3 2; 4 3 3; 4 4 3; 4 5 3; 4 5 2; 4 5 1];
+route_unscaled = [3 -2 1; 4 -2 1];
+
+% a and b
+a = 11.3459;
+b = -9.7917;
 
 % Scaling and Offset
 x_scale = 0.65;
@@ -53,7 +57,7 @@ route_scaled(:,2) = (route_scaled(:,2) - 1) * y_scale + y_offset;
 route_scaled(:,3) = (route_scaled(:,3) - 1) * z_scale + z_offset;
 
 % Make a copy of the route_scaled
-route = route_scaled;
+route = route_unscaled;
 
 wall_color = [0.8 0.2 0.2];
 sample_time = 4e-2;
