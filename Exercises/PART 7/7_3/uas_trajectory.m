@@ -26,33 +26,61 @@
 
 % Initialization
 close all
-clear
-clc
+
+
+% Read hoops
+hoop1 = [2.0104; -2.4099; 1.2134];
+hoop2 = [3.3634; -3.7947; 1.2367];
+hoop3 = [4.3668; -2.4517; 1.2397];
+hoop4 = [3.3678; -1.2525; 1.1876];
+
+% hoop1 = out.hoop1.Data(index);
+% hoop2 = out.hoop2.Data(index);
+% hoop3 = out.hoop3.Data(index);
+% hoop4 = out.hoop4.Data(index);
+
+
+
+
 
 % Trajectory generation
-
-knots = [0 5];
+knots = [0 40];
 waypoints = cell(1,2);
-waypoints{1} = [0 ; 0 ; 1];
-waypoints{2} = [9 ; 9 ; 1];
-% Fix this...
-%order = 7;
-%corridors.times = [2 2.5 3];
-%corridors.x_lower = [6 8 8];
-%corridors.x_upper = [10 10 10];
-%corridors.y_lower = [-1 -1 -1];
-%corridors.y_upper = [1 1 3];
-%corridors.z_lower = [0 0 0];
-%corridors.z_upper = [2 2 2];
-order = 11;
-corridors.times = [1.5 2 2.5 3.25];
-corridors.x_lower = [0.5 8.65 8.65 8.65];
-corridors.x_upper = [8.5 9.35 9.35 9.35];
-corridors.y_lower = [-0.35 -0.35 -0.35 0.5];
-corridors.y_upper = [0.25 0.25 0.25 8.5];
-corridors.z_lower = [0.5 0.5 0.5 0.5];
-corridors.z_upper = [1.5 1.5 1.5 1.5];
-% ...until here
+center = (hoop1+hoop2+hoop3+hoop4)/4;
+
+% waypoints{2} = (hoop1 + hoop2)/2 + [hoop2(2), hoop2(1), 0];
+% waypoints{2} = hoop2;
+% waypoints{3} = hoop3;
+% waypoints{4} = hoop4;
+factor = 0.75;
+corner41 = ((hoop4 + hoop1)/2 - center)*(1+factor)+center;
+corner12 = ((hoop1 + hoop2)/2 - center)*(1+factor)+center;
+corner23 = ((hoop2 + hoop3)/2 - center)*(1+factor)+center;
+corner34 = ((hoop3 + hoop4)/2 - center)*(1+factor)+center;
+waypoints{1} = corner41;
+waypoints{2} = corner41;
+order = 13;
+error = 0.01;
+error2 = 0.05;
+starttime = 5;
+delta = 5;
+corridors.times = starttime + delta*[0 1 2 3 4 5 6];
+corridors.x_lower = [hoop1(1)-error corner12(1)-error2 hoop2(1)-error corner23(1)-error2 hoop3(1)-error corner34(1)-error2 hoop4(1)-error];
+corridors.x_upper = [hoop1(1)+error corner12(1)+error2 hoop2(1)+error corner23(1)+error2 hoop3(1)+error corner34(1)+error2 hoop4(1)+error];     
+corridors.y_lower = [hoop1(2)-error corner12(2)-error2 hoop2(2)-error corner23(2)-error2 hoop3(2)-error corner34(2)-error2 hoop4(2)-error];
+corridors.y_upper = [hoop1(2)+error corner12(2)+error2 hoop2(2)+error corner23(2)+error2 hoop3(2)+error corner34(2)+error2 hoop4(2)+error];
+corridors.z_lower = [hoop1(3)-error corner12(3)-error2 hoop2(3)-error corner23(3)-error2 hoop3(3)-error corner34(3)-error2 hoop4(3)-error];
+corridors.z_upper = [hoop1(3)+error corner12(3)+error2 hoop2(3)+error corner23(3)+error2 hoop3(3)+error corner34(3)+error2 hoop4(3)+error];
+
+% corridors.x_lower = [corner41(1)-error2 hoop1(1)-error corner12(1)-error2 hoop2(1)-error corner23(1)-error2 hoop3(1)-error corner34(1)-error2 hoop4(1)-error corner41(1)-error2];
+% corridors.x_upper = [corner41(1)+error2 hoop1(1)+error corner12(1)+error2 hoop2(1)+error corner23(1)+error2 hoop3(1)+error corner34(1)+error2 hoop4(1)+error corner41(1)+error2];     
+% corridors.y_lower = [corner41(2)-error2 hoop1(2)-error corner12(2)-error2 hoop2(2)-error corner23(2)-error2 hoop3(2)-error corner34(2)-error2 hoop4(2)-error corner41(2)-error2];
+% corridors.y_upper = [corner41(2)+error2 hoop1(2)+error corner12(2)+error2 hoop2(2)+error corner23(2)+error2 hoop3(2)+error corner34(2)+error2 hoop4(2)+error corner41(2)+error2];
+% corridors.z_lower = [corner41(3)-error2 hoop1(3)-error corner12(3)-error2 hoop2(3)-error corner23(3)-error2 hoop3(3)-error corner34(3)-error2 hoop4(3)-error corner41(3)-error2];
+% corridors.z_upper = [corner41(3)+error2 hoop1(3)+error corner12(3)+error2 hoop2(3)+error corner23(3)+error2 hoop3(3)+error corner34(3)+error2 hoop4(3)+error corner41(3)+error2];
+
+
+
 make_plots = true;
 
 poly_traj = uas_minimum_snap(knots, order, waypoints, corridors, make_plots);
