@@ -29,15 +29,16 @@ close all
 
 
 % Read hoops
-hoop1 = [2.0104; -2.4099; 1.2134];
-hoop2 = [3.3634; -3.7947; 1.2367];
-hoop3 = [4.3668; -2.4517; 1.2397];
-hoop4 = [3.3678; -1.2525; 1.1876];
+% hoop1 = [2.0104; -2.4099; 1.2134];
+% hoop2 = [3.3634; -3.7947; 1.2367];
+% hoop3 = [4.3668; -2.4517; 1.2397];
+% hoop4 = [3.3678; -1.2525; 1.1876];
 
-% hoop1 = out.hoop1.Data(index);
-% hoop2 = out.hoop2.Data(index);
-% hoop3 = out.hoop3.Data(index);
-% hoop4 = out.hoop4.Data(index);
+pos = 50; % 2 sek
+hoop1 = out.hoop1.Data(pos,2:4);
+hoop2 = out.hoop2.Data(pos,2:4);
+hoop3 = out.hoop3.Data(pos,2:4);
+hoop4 = out.hoop4.Data(pos,2:4);
 
 
 
@@ -53,7 +54,7 @@ center = (hoop1+hoop2+hoop3+hoop4)/4;
 % waypoints{3} = hoop3;
 % waypoints{4} = hoop4;
 factor = 0.75;
-corner41 = ((hoop4 + hoop1)/2 - center)*(1+factor)+center;
+corner41 = ((hoop4 + hoop1)/2 - center)*2+center;
 corner12 = ((hoop1 + hoop2)/2 - center)*(1+factor)+center;
 corner23 = ((hoop2 + hoop3)/2 - center)*(1+factor)+center;
 corner34 = ((hoop3 + hoop4)/2 - center)*(1+factor)+center;
