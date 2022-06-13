@@ -36,8 +36,8 @@ clc
 route_unscaled = [1 1 1];
 
 % a and b
-a = 11.3459;
-b = -9.7917;
+a = 0.0932;
+b = 0.8031;
 
 % Scaling and Offset
 x_scale = 0.65;

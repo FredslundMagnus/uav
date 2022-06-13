@@ -33,11 +33,11 @@ clc
 %% SIMULATION PARAMETERS
 
 % Unscaled route
-route_unscaled = [3 -2 1; 4 -2 1];
+route_unscaled = [3 -3 1; 4 -3 1];
 
 % a and b
-a = 11.3459;
-b = -9.7917;
+a = 0.0932;
+b = 0.8231;
 
 % Scaling and Offset
 x_scale = 0.65;
