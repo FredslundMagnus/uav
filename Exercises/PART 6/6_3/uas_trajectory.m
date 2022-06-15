@@ -29,7 +29,7 @@ close all
 clear
 clc
 
-% Trajectory generation
+%% Trajectory generation
 
 knots = [0 5];
 waypoints = cell(1,2);
