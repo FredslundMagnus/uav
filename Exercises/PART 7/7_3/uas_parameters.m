@@ -37,7 +37,7 @@ route_unscaled = [3 -3 1; 4 -3 1];
 
 % a and b
 a = 0.0932;
-b = 0.8231;
+b = 0.7631;
 
 % Scaling and Offset
 x_scale = 0.65;
